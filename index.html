@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Software by Andres</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #020617;
+      --bg-alt: #0b1120;
+      --card: #020617;
+      --accent: #2563eb;
+      --accent-soft: rgba(37, 99, 235, 0.16);
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --border: #1f2937;
+      --radius: 0.9rem;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.9);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top, #1f2937 0, #020617 50%, #000 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(2, 6, 23, 0.95);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(31, 41, 55, 0.8);
+    }
+
+    .header-inner {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0.9rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 0.9rem;
+      background:
+        radial-gradient(circle at 0 0, #22c55e 0, transparent 55%),
+        radial-gradient(circle at 70% 0, #60a5fa 0, transparent 60%),
+        radial-gradient(circle at 50% 100%, #1d4ed8 0, transparent 60%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      box-shadow: 0 14px 35px rgba(37, 99, 235, 0.6);
+      color: #e5e7eb;
+    }
+
+    .brand-text-main {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+
+    .brand-text-sub {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+
+    .nav-links a {
+      position: relative;
+      padding: 0.1rem 0;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -0.25rem;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #2563eb, #22c55e);
+      border-radius: 999px;
+      transition: width 0.15s ease-out;
+    }
+
+    .nav-links a:hover {
+      color: #e5e7eb;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      display: none;
+    }
+
+    main {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 2.3rem 1.5rem 3rem;
+    }
+
+    /* Hero */
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 2rem;
+      align-items: center;
+      margin-bottom: 3rem;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: #a5b4fc;
+      background: rgba(15, 23, 42, 0.8);
+      border-radius: 999px;
+      padding: 0.32rem 0.8rem;
+      border: 1px solid rgba(37, 99, 235, 0.5);
+    }
+
+    .kicker-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.22);
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 3.4vw, 2.6rem);
+      margin-top: 1rem;
+      line-height: 1.1;
+    }
+
+    .hero-title span.gradient {
+      background: linear-gradient(120deg, #60a5fa, #22c55e);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-sub {
+      margin-top: 0.9rem;
+      font-size: 0.98rem;
+      color: #cbd5f5;
+    }
+
+    .hero-sub strong {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    .hero-bullets {
+      margin-top: 0.9rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+      list-style: none;
+    }
+
+    .hero-bullets li {
+      margin-bottom: 0.3rem;
+    }
+
+    .hero-bullets li::before {
+      content: "▹";
+      margin-right: 0.4rem;
+      color: #60a5fa;
+    }
+
+    .hero-actions {
+      margin-top: 1.4rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.7rem 1.4rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      background: var(--accent);
+      color: white;
+      font-size: 0.9rem;
+      cursor: pointer;
+      box-shadow: 0 16px 40px rgba(37, 99, 235, 0.6);
+      transition:
+        transform 0.12s ease-out,
+        box-shadow 0.12s ease-out,
+        background 0.12s ease-out,
+        border-color 0.12s ease-out;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 22px 55px rgba(37, 99, 235, 0.75);
+      background: #1d4ed8;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border-color: #4b5563;
+      color: #e5e7eb;
+      box-shadow: none;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(15, 23, 42, 0.95);
+      border-color: #60a5fa;
+    }
+
+    .hero-meta {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.4rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .meta-block span:first-child {
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.7rem;
+      color: #6b7280;
+      display: block;
+      margin-bottom: 0.15rem;
+    }
+
+    .meta-block span:last-child {
+      color: #e5e7eb;
+      font-size: 0.86rem;
+    }
+
+    .hero-card {
+      background: radial-gradient(circle at top, #1f2937 0, #020617 65%);
+      border-radius: 1.1rem;
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      box-shadow: var(--shadow-soft);
+      padding: 1.1rem 1.2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0 0, rgba(96, 165, 250, 0.25), transparent 55%),
+        radial-gradient(circle at 100% 120%, rgba(34, 197, 94, 0.25), transparent 55%);
+      opacity: 0.7;
+      mix-blend-mode: screen;
+    }
+
+    .hero-card-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.78rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      color: #e5e7eb;
+      margin-bottom: 0.7rem;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.22);
+    }
+
+    .hero-list {
+      list-style: none;
+      font-size: 0.86rem;
+      color: #d1d5db;
+    }
+
+    .hero-list li {
+      border-bottom: 1px solid rgba(31, 41, 55, 0.85);
+      padding: 0.45rem 0;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .hero-list li:last-child {
+      border-bottom: none;
+    }
+
+    .hero-list small {
+      color: var(--muted);
+      font-size: 0.75rem;
+    }
+
+    /* Sections */
+
+    section {
+      margin-bottom: 3rem;
+    }
+
+    h2.section-title {
+      font-size: 1.3rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .section-sub {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+    }
+
+    .pill-kicker {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: #6b7280;
+      margin-bottom: 0.3rem;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 1rem 1.1rem;
+      box-shadow: 0 14px 35px rgba(15, 23, 42, 0.9);
+      font-size: 0.9rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at 0 0, var(--accent-soft), transparent 60%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .card-tag {
+      font-size: 0.76rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      margin-bottom: 0.35rem;
+    }
+
+    .card p {
+      color: #d1d5db;
+      margin-bottom: 0.4rem;
+    }
+
+    .card small {
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    /* About */
+
+    .about-text p {
+      font-size: 0.95rem;
+      color: #d1d5db;
+      margin-bottom: 0.6rem;
+    }
+
+    .about-list {
+      list-style: none;
+      margin-top: 0.4rem;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    .about-list li {
+      margin-bottom: 0.25rem;
+    }
+
+    .about-list li::before {
+      content: "▹";
+      margin-right: 0.4rem;
+      color: #22c55e;
+    }
+
+    /* Contacto */
+
+    .contact-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 1.1rem 1.2rem;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .contact-row {
+      margin-bottom: 0.45rem;
+      font-size: 0.9rem;
+      color: #d1d5db;
+    }
+
+    .contact-row strong {
+      color: #e5e7eb;
+    }
+
+    .contact-row a {
+      color: #60a5fa;
+    }
+
+    .contact-note {
+      margin-top: 0.7rem;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    .contact-actions {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    footer {
+      border-top: 1px solid #1f2937;
+      background: #020617;
+      text-align: center;
+      padding: 1.6rem 1.5rem 1.4rem;
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    /* Responsive */
+
+    @media (max-width: 800px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-card {
+        order: -1;
+      }
+
+      .cards-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .header-inner {
+        padding-inline: 1rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .nav-cta {
+        display: inline-flex;
+        padding: 0.45rem 0.9rem;
+        font-size: 0.8rem;
+      }
+
+      main {
+        padding-inline: 1rem;
+      }
+
+      .hero-title {
+        font-size: 1.8rem;
+      }
+
+      .btn,
+      .btn-secondary {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a href="#inicio" class="brand">
+        <div class="brand-logo">SA</div>
+        <div>
+          <div class="brand-text-main">Software by Andres</div>
+          <div class="brand-text-sub">Soluciones de software para tu equipo y tu negocio</div>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="#servicios">Servicios</a>
+        <a href="#sobre-mi">Sobre mí</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <a href="#contacto" class="btn nav-cta">Escríbeme</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section id="inicio" class="hero">
+      <div>
+        <div class="hero-kicker">
+          <span class="kicker-dot"></span>
+          Soporte y soluciones de software
+        </div>
+        <h1 class="hero-title">
+          Dejo tu computador y tu negocio<br />
+          <span class="gradient">funcionando como deben</span>
+        </h1>
+        <p class="hero-sub">
+          En <strong>Software by Andres</strong> me encargo de todo lo relacionado con
+          <strong>sistemas operativos, virus, rendimiento y software</strong>, y también
+          creo <strong>páginas web para tu negocio</strong> para que te veas profesional.
+        </p>
+        <ul class="hero-bullets">
+          <li>Instalo y configuro sistemas operativos desde cero.</li>
+          <li>Elimino virus, optimizo tu PC y la dejo más rápida.</li>
+          <li>Resuelvo problemas de programas y configuración de software.</li>
+          <li>Diseño páginas web sencillas y claras para tu negocio.</li>
+        </ul>
+
+        <div class="hero-actions">
+          <a href="https://wa.me/573246233554" class="btn" target="_blank" rel="noreferrer">
+            Hablar por WhatsApp
+          </a>
+          <a href="#servicios" class="btn btn-secondary">
+            Ver todo lo que hago
+          </a>
+        </div>
+
+        <div class="hero-meta">
+          <div class="meta-block">
+            <span>Atención</span>
+            <span>Soporte a personas, pequeños negocios y oficinas</span>
+          </div>
+          <div class="meta-block">
+            <span>Modo de trabajo</span>
+            <span>Remoto y presencial (según ubicación)</span>
+          </div>
+        </div>
+      </div>
+
+      <aside class="hero-card">
+        <div class="hero-card-content">
+          <div class="status-pill">
+            <span class="status-dot"></span>
+            Agenda abierta para nuevos trabajos
+          </div>
+          <ul class="hero-list">
+            <li>
+              <div>
+                <strong>Instalación de sistema operativo</strong><br />
+                <small>Windows limpio, drivers, programas básicos y actualizaciones.</small>
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Revisión de virus y seguridad</strong><br />
+                <small>Escaneo profundo, eliminación de malware y recomendaciones.</small>
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Optimización y limpieza</strong><br />
+                <small>PC lenta → más rápida, más espacio y mejor arranque.</small>
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>Creación de página web</strong><br />
+                <small>Una web sencilla y clara para que tu negocio se vea profesional.</small>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Servicios -->
+    <section id="servicios">
+      <div class="pill-kicker">Servicios</div>
+      <h2 class="section-title">¿En qué te puedo ayudar?</h2>
+      <p class="section-sub">
+        Todo lo que necesitas para que tu computador, tu software y tu presencia en internet
+        funcionen bien y sin complicaciones.
+      </p>
+
+      <div class="cards-grid">
+        <article class="card">
+          <div class="card-inner">
+            <div class="card-tag">Sistema operativo</div>
+            <h3 class="card-title">Instalación y formateo de Windows</h3>
+            <p>
+              Formateo completo, instalación limpia de Windows, drivers actualizados y
+              programas básicos listos para usar (navegador, Office alternativo, etc.).
+            </p>
+            <small>Ideal cuando tu PC está muy lenta o llena de errores.</small>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-inner">
+            <div class="card-tag">Virus y rendimiento</div>
+            <h3 class="card-title">Eliminación de virus y optimización</h3>
+            <p>
+              Revisión completa, eliminación de virus, malware y programas basura,
+              optimización de inicio y limpieza general del sistema.
+            </p>
+            <small>Para computadores que se bloquean, se calientan o trabajan muy lento.</small>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-inner">
+            <div class="card-tag">Software</div>
+            <h3 class="card-title">Configuración y solución de problemas</h3>
+            <p>
+              Ayuda con instalación de programas, errores de software, configuración de
+              aplicaciones y pequeños ajustes para que todo funcione bien.
+            </p>
+            <small>Te explico de forma sencilla qué se hizo y qué puedes hacer después.</small>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-inner">
+            <div class="card-tag">Página web</div>
+            <h3 class="card-title">Creación de página web para tu negocio</h3>
+            <p>
+              Sitios web sencillos pero llamativos, con tu información, servicios,
+              WhatsApp y datos de contacto para que te encuentren fácil.
+            </p>
+            <small>Perfecto para negocios pequeños, emprendimientos y servicios.</small>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Sobre mí -->
+    <section id="sobre-mi">
+      <div class="pill-kicker">Sobre mí</div>
+      <h2 class="section-title">¿Quién es Andres?</h2>
+      <div class="about-text">
+        <p>
+          Soy <strong>Andres Felipe Villarreal Gonzalez,</strong> nacido en caucasia antioquia, soy ingeniero de software. Me gusta ayudar a personas
+          y negocios que necesitan alguien que se encargue de la parte técnica:
+          <strong>computadores, software y presencia básica en internet</strong>.
+        </p>
+        <p>
+          No uso lenguaje complicado. Te explico de forma sencilla qué se va a hacer,
+          cuánto tarda y cómo quedará tu equipo o tu página al final.
+        </p>
+        <ul class="about-list">
+          <li>Trato directo, sin tecnicismos raros.</li>
+          <li>Enfoque en que todo funcione bien y estable.</li>
+          <li>Te entrego tu equipo o tu web listo para usar.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contacto">
+      <div class="pill-kicker">Contacto</div>
+      <h2 class="section-title">Hablemos de tu problema o tu idea</h2>
+      <div class="contact-card">
+        <div class="contact-row">
+          <strong>Email:</strong>
+          <br />
+          <a href="mailto:andrsguapox36@gmail.com">andrsguapox36@gmail.com</a>
+        </div>
+        <div class="contact-row">
+          <strong>WhatsApp / Celular:</strong>
+          <br />
+          <a href="https://wa.me/573246233554" target="_blank" rel="noreferrer">
+            324 623 3554
+          </a>
+        </div>
+        <div class="contact-row">
+          <strong>Cómo trabajamos:</strong>
+          <br />
+          Me mandas un mensaje explicando qué te pasa (PC lento, virus, formateo,
+          página web para tu negocio, etc.) y te respondo con opciones y precio.
+        </div>
+
+        <p class="contact-note">
+          Mientras más claro me cuentes tu problema o lo que quieres lograr, más rápido
+          te puedo ayudar y darte una solución a la medida.
+        </p>
+
+        <div class="contact-actions">
+          <a href="https://wa.me/573246233554" class="btn" target="_blank" rel="noreferrer">
+            Escribir por WhatsApp
+          </a>
+          <a href="mailto:andrsguapox36@gmail.com?subject=Consulta%20Software%20by%20Andres"
+             class="btn btn-secondary">
+            Enviar un correo
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> Software by Andres · Todo sobre software para tu PC y tu negocio
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
