@@ -37,6 +37,12 @@
       color: inherit;
     }
 
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
     header {
       position: sticky;
       top: 0;
@@ -497,6 +503,7 @@
     @media (max-width: 800px) {
       .hero {
         grid-template-columns: minmax(0, 1fr);
+        gap: 1.6rem;
       }
 
       .hero-card {
@@ -529,6 +536,10 @@
 
       .hero-title {
         font-size: 1.8rem;
+      }
+
+      .hero-actions {
+        flex-direction: column;
       }
 
       .btn,
@@ -771,3 +782,4 @@
   </script>
 </body>
 </html>
+
