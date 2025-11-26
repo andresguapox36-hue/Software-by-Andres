@@ -498,6 +498,29 @@
       color: #6b7280;
     }
 
+    /* BOTÓN FLOTANTE WHATSAPP */
+    .whatsapp-float {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      bottom: 20px;
+      right: 20px;
+      background: #25d366;
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      font-size: 30px;
+      line-height: 60px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      z-index: 9999;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.08);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45);
+    }
+
     /* Responsive */
 
     @media (max-width: 800px) {
@@ -715,7 +738,7 @@
       <h2 class="section-title">¿Quién es Andres?</h2>
       <div class="about-text">
         <p>
-          Soy <strong>Andres Felipe Villarreal Gonzalez,</strong> nacido en caucasia antioquia, soy ingeniero de software. Me gusta ayudar a personas
+          Soy <strong>Andres Felipe Villarreal Gonzalez,</strong> nacido en Caucasia, Antioquia, soy ingeniero de software. Me gusta ayudar a personas
           y negocios que necesitan alguien que se encargue de la parte técnica:
           <strong>computadores, software y presencia básica en internet</strong>.
         </p>
@@ -777,9 +800,13 @@
     © <span id="year"></span> Software by Andres · Todo sobre software para tu PC y tu negocio
   </footer>
 
+  <!-- BOTÓN FLOTANTE WHATSAPP -->
+  <a href="https://wa.me/573246233554" class="whatsapp-float" target="_blank" rel="noreferrer">
+    💬
+  </a>
+
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
-
